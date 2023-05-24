@@ -20,3 +20,5 @@ update member set age=45, phone='010-1111-00000' where id='admin';
 
 --delete(삭제)
 --delete from member where
+
+
