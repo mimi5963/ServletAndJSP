@@ -1,7 +1,9 @@
 package kr.bit.model;
 //JDBC -> mybatis, JPA으로 넘어감 
 import java.sql.*;
+import java.util.ArrayList;
 public class MemberDAO {
+	
 	private Connection conn;//DB와 연결 
 	private PreparedStatement ps; //conn의 sql DB에 전송
 	private ResultSet rs; //select 실행결과 저장 //실행결과를 마치 이터레이터처럼
@@ -45,10 +47,117 @@ public class MemberDAO {
 			cnt = ps.executeUpdate(); // 전송(실행) ps가 채워서 진짜 보냄 (성공1,실패0)
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			dbClose();
 		}
 		return cnt;
 		
 	}
+	//회원 전체리스트 어레이리스트로 가져오기
+	public ArrayList<MemberVO> getMemberList() {
+		String sql = "SELECT * FROM member";
+		getConnect();
+		MemberVO mem;
+		ArrayList<MemberVO> members= new ArrayList<>(); 
+		try {
+			ps = conn.prepareStatement(sql);
+			rs =ps.executeQuery();
+			while(rs.next()) {
+			int num = rs.getInt("num");
+			String id = rs.getString("id");
+			String pass= rs.getString("pass");
+			String name = rs.getString("name");
+			int age = rs.getInt("age");
+			String email = rs.getString("email");
+			String phone = rs.getString("phone");
+			mem = new MemberVO(num,id,pass,name,age,email,phone);
+			//num들어간 생성자 있었던 이유!
+			members.add(mem);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		
+		return members;
+	}
 	
+	// 데이터베이스 연결 끊기
+	public void dbClose() {
+		try {
+			if(rs != null)rs.close();
+			if(ps != null)ps.close();
+			if(conn != null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
+	public int DeleteMember(int num) {
+		String sql = "delete from member where num =?";
+		int cnt=-1;
+		getConnect();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, num);
+			cnt = ps.executeUpdate(); //1 or 0
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return cnt;
+	}
+	
+	public MemberVO memberContents(int num) {
+		MemberVO content=null;
+		String sql = "select * from member where num=?";
+		getConnect();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, num);
+			rs =ps.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				String pass= rs.getString("pass");
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+				String email = rs.getString("email");
+				String phone = rs.getString("phone");
+				content = new MemberVO(num,id,pass,name,age,email,phone);
+			}else {
+				throw new Exception();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		
+		
+		return content;
+	}
+	
+	public int MemberUpdate(MemberVO modify) {
+		String sql ="update member set age=?,email=?,phone=? where num=?";
+		getConnect();
+		int cnt=-1;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, modify.getAge());
+			ps.setString(2, modify.getEmail());
+			ps.setString(3, modify.getPhone());
+			ps.setInt(4, modify.getNum());
+			
+			cnt = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return cnt;
+	}
 }
