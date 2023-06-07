@@ -21,7 +21,7 @@ public class MemberListController implements Controller{
 		//객체바인딩까지는 가자
 		request.setAttribute("mlist", list);
 		//다음페이지는 다음과 같습니다. 뽀워딩주소
-		return "memebr/memberList.jsp";
+		return "member/memberList.jsp";
 	}
 
 	
