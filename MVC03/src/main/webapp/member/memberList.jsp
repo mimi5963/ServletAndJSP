@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
  <%@ page import = "kr.bit.model.*" %>
  <%@ page import = "java.util.ArrayList" %>   
+ <%@taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
  <% 
- 	ArrayList<MemberVO> memberlist = (ArrayList<MemberVO>)request.getAttribute("mlist");
+ 	//ArrayList<MemberVO> memberlist = (ArrayList<MemberVO>)request.getAttribute("mlist");
  
  %>   
     
@@ -35,18 +36,18 @@
 		</tr>
 		</thead>
 		<tbody>
-		<% for(MemberVO m : memberlist) { %>
+	<c:forEach var="m" items="${mlist}">
 		    <tr>
-		    <td><%=m.getNum()%></td>
-		    <td><a href="memberContent.do?num=<%=m.getNum()%>"><%=m.getId() %></a></td>
-		    <td><%=m.getPass() %></td>
-		    <td><%=m.getName() %></td>
-		    <td><%=m.getAge() %></td>
-		    <td><%=m.getEmail() %></td>
-		    <td><%=m.getPhone() %></td>
-		    <td><input type="button" value="삭제" onclick="deleteFn(<%=m.getNum() %>)"</td>
+		    <td>${m.num}</td>
+		    <td><a href="memberContent.do?num=${m.num}">${m.id}</a></td>
+		    <td>${m.pass}</td>
+		    <td>${m.name}</td>
+		    <td>${m.age}</td>
+		    <td>${m.email}</td>
+		    <td>${m.phone}</td>
+		    <td><input type="button" value="삭제" onclick="deleteFn(${m.num})"</td>
 		    </tr>
-		<% }%>
+		</c:forEach>
 		</tbody>
 		<tr>
 		<td colspan='8' align='right'>
