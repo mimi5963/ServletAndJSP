@@ -19,7 +19,7 @@ public class MemberContentController implements Controller {
 		MemberDAO dao = new MemberDAO();
 		MemberVO mem_inf = dao.memberContents(num);
 		request.setAttribute("mem_inf", mem_inf);
-		String nextPage = "/member/memberContent.jsp";
+		String nextPage = "memberContent";
 		return nextPage;
 	}
 

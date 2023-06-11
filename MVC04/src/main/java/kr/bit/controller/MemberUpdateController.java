@@ -31,7 +31,7 @@ public class MemberUpdateController implements Controller {
 		int cnt = dao.MemberUpdate(modify);
 		String nextPage=null;
 		if(cnt>0) { //업데이트 성공 
-			nextPage="/MVC04/memberList.do"; //리스트로 돌아가기
+			nextPage="redirect:/MVC04/memberList.do"; //리스트로 돌아가기
 			 //DB 서버 실행되있어야함
 		}else {//업데이트 실패
 			throw new ServletException("not update");

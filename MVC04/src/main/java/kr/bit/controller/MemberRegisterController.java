@@ -14,7 +14,7 @@ public class MemberRegisterController implements Controller {
 		
 		//그냥 리턴만하는..
 		
-		return "member/memberRegister.html";
+		return "memberRegister";
 	}
 	
 	

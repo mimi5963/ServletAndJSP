@@ -8,7 +8,7 @@
  	//ArrayList<MemberVO> memberlist = (ArrayList<MemberVO>)request.getAttribute("mlist");
  
  %>   
-    
+  <c:set var ="ctx" value="${pageContext.request.contextPath}"/>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 <script type ="text/javascript">
 	function deleteFn(num){
-		location.href ="memberDelete.do?num="+num;
+		location.href ="${ctx}/memberDelete.do?num="+num;
 	}
 
 </script>
@@ -39,7 +39,7 @@
 	<c:forEach var="m" items="${mlist}">
 		    <tr>
 		    <td>${m.num}</td>
-		    <td><a href="memberContent.do?num=${m.num}">${m.id}</a></td>
+		    <td><a href="${ctx}/memberContent.do?num=${m.num}">${m.id}</a></td>
 		    <td>${m.pass}</td>
 		    <td>${m.name}</td>
 		    <td>${m.age}</td>
@@ -51,7 +51,7 @@
 		</tbody>
 		<tr>
 		<td colspan='8' align='right'>
-		<input type ="button" value="회원가입" onclick="location.href ='/MVC04/memberRegister.do'">
+		<input type ="button" value="회원가입" onclick="location.href ='${ctx}/memberRegister.do'">
 		</td>	
 		</tr>
 		</table>

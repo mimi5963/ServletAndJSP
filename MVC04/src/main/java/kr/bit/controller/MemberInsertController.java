@@ -28,7 +28,7 @@ public class MemberInsertController implements Controller {
 		int cnt = dao.memberInsert(vo);
 		String nextPage =null;
 		if(cnt>0) { //가입성공
-			nextPage="/MVC04/memberList.do";
+			nextPage="redirect:/MVC04/memberList.do";
 			 //DB 서버 실행되있어야함
 		}else {//가입실패 
 			throw new ServletException("not insert");

@@ -7,6 +7,7 @@
 	//MemberVO mem_inf = (MemberVO)request.getAttribute("mem_inf");
  	
  %>
+ <c:set var ="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 </head>
 <body>
 
-<form action="memberUpdate.do" method="post">
+<form action="${ctx}/memberUpdate.do" method="post">
 		
 		<input type="hidden" name="num" value="${mem_inf.num}" />
 		<table>
@@ -68,7 +69,7 @@
 		<td colspan='2' align='center'>
 		<input type= 'submit' value='수정'/>
 		<input type= 'reset' value='취소'/>
-		<input type="button" value="돌아가기" onclick="location.href='/MVC03/memberList.do'"/>
+		<input type="button" value="돌아가기" onclick="location.href='${ctx}/memberList.do'"/>
 		</td>
 		<tr>
 		</table>
