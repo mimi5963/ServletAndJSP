@@ -71,6 +71,9 @@ public class AddController extends HttpServlet{
 			
 		Cookie valcookie = new Cookie("value",String.valueOf(v));
 		Cookie opcookie = new Cookie("bu",bu);
+		valcookie.setPath("/add");
+		valcookie.setMaxAge(24*60*60); //하루 60초 60분 24시간)
+		opcookie.setPath("/add");
 		response.addCookie(valcookie);
 		response.addCookie(opcookie);
 		response.sendRedirect("/newl/add.html");
