@@ -8,7 +8,7 @@ public class MemberVO {
 	 private int age;
 	 private String email;
 	 private String phone;
-	 public MemberVO() {   }
+	 public MemberVO() { }
 	 
 	public MemberVO(String id, String pass, String name, int age, String email, String phone) {
 		super();
