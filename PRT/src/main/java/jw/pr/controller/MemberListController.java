@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jw.pr.model.*;
 
-@WebServlet("/memberList.do")
+//@WebServlet("/memberList.do")
 public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

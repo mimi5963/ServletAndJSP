@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="kw.pr.model.*" %>
-
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -13,7 +13,7 @@
     <title>회원상세정보</title>
   </head>
   <body>
-    <form action="/PRT/memberUpdate.do" method="post">
+    <form action="${ctx}/memberUpdate.do" method="post">
       <input type="hidden" value="${member.num}" name="num">
       <table border="2">
         <c:if test="${member !=null}">
@@ -49,7 +49,7 @@
       </table>
       <input type="submit" value="수정하기" />
       <input type="reset" value="취소하기" />
-      <input type="button" value="돌아가기" onclick="location.href='/PRT/memberList.do'" />
+      <input type="button" value="돌아가기" onclick="location.href='${ctx}/memberList.do'" />
     </form>
   </body>
 </html>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -9,7 +11,7 @@
     <title>회원가입</title>
   </head>
   <body>
-    <form action="/PRT/memberInsert.do" method="post">
+    <form action="${ctx}/memberInsert.do" method="post">
     <table border="2">
       <tr>
        <td>id:<input type="text" name="id"></td> 
@@ -32,7 +34,7 @@
     </table>
       <input type="submit" value="회원가입"/>
       <input type="reset" value="취소"/>
-      <input type="button" value="돌아가기" onclick="location.href='/PRT/memberList.do'"/>
+      <input type="button" value="돌아가기" onclick="location.href='${ctx}/memberList.do'"/>
   </form>
   </body>
 </html>

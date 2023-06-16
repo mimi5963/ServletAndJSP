@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="kw.pr.model.*" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="kr">
   <head>
   <script type="text/javascript">
   function deletefunc(num){
-	  location.href="/PRT/memberDelete.do?num="+num;
+	  location.href="${ctx}/memberDelete.do?num="+num;
   }
  
   </script>
@@ -32,7 +34,7 @@
 	<c:forEach var="vo" items="${list}">
 		<tr>
 		<td>${vo.num}</td>
-		<td><a href="/PRT/memberContent.do?num=${vo.num}">${vo.id}</a></td>
+		<td><a href="${ctx}/memberContent.do?num=${vo.num}">${vo.id}</a></td>
 		<td>${vo.pass}</td>
 		<td>${vo.name}</td>
 		<td>${vo.age}</td>
@@ -43,7 +45,7 @@
 	</c:forEach>
 	<tr>
 	<td colspan='8' align='right'>
-	<input type="button" value="회원가입" onclick="location.href='/PRT/memberRegister.do'">
+	<input type="button" value="회원가입" onclick="location.href='${ctx}/memberRegister.do'">
     </td>
     </tr>
     </table>

@@ -1,22 +1,21 @@
-package jw.pr.controller;
+package jw.pr.pojo;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jw.pr.model.*;
 
+import jw.pr.model.MemberDAO;
+import jw.pr.model.MemberVO;
 
-public class MemberInsertController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-   
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//파라미터 수집
-		request.setCharacterEncoding("utf-8");
+public class MemberInsertController implements Controller {
+
+	@Override
+	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
+		String ctx = request.getContextPath();
 		String id= request.getParameter("id");
 		String pass= request.getParameter("pass");
 		String name= request.getParameter("name");
@@ -28,14 +27,11 @@ public class MemberInsertController extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		
 		int cnt = dao.memberInsert(vo);
-		
-		if(cnt >0) {
-			response.sendRedirect("/PRT/memberList.do");
-		}else {
-			throw new ServletException("입력실패!");
+		String nextPage=null;
+		if(cnt>0) {
+			nextPage= "redirect:"+ctx+"/memberList.do";
 		}
-		
-		
+		return nextPage;
 	}
 
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import jw.pr.model.MemberDAO;
 
 
-@WebServlet("/memberDelete.do")
+
 public class MemberDeleteController extends HttpServlet {
 	 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

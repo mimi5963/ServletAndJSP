@@ -1,20 +1,20 @@
-package jw.pr.controller;
+package jw.pr.pojo;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jw.pr.model.*;
+import jw.pr.model.MemberDAO;
+import jw.pr.model.MemberVO;
 
+public class MemberUpdateController implements Controller {
 
-//@WebServlet("/memberUpdate.do")
-public class MemberUpdateController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String ctx = request.getContextPath();
 		int num = Integer.parseInt(request.getParameter("num"));
 		int age = Integer.parseInt(request.getParameter("age"));
 		String email = request.getParameter("email");
@@ -27,12 +27,13 @@ public class MemberUpdateController extends HttpServlet {
 		member.setPhone(phone);
 		MemberDAO dao = new MemberDAO();
 		int cnt = dao.MemberUpdate(member);
-		
+		String nextPage =null;
 		if(cnt>0) {
-			response.sendRedirect("/PRT/memberList.do");
+			nextPage ="redirect:"+ctx+"/memberList.do";
 		}else {
 			throw new ServletException("업데이트 실패");
 		}
-		
+		return nextPage;
 	}
+
 }
