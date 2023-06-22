@@ -72,12 +72,20 @@ public class MemberDAO {
    public String memberCheck(String id) {
      SqlSession session = sqlSessionFactory.openSession();
      String dbid = session.selectOne("membercheck", id);
+     session.close();
      String isDouble="NO";
 	  if(dbid != null) {
 		  isDouble="YES";
 	  }
 	   
 	   return isDouble;//YES(중복), NO(중복아님)
+   }
+   public int memberInsertFile(MemberVO vo) {
+	   SqlSession session = sqlSessionFactory.openSession();
+	   int cnt = session.insert("memberinsertfile", vo);
+	   session.commit();
+	   session.close();
+	   return cnt;
    }
 }
 

@@ -47,6 +47,42 @@
     		 $("#id").focus();
     	 }
      }
+     
+     function add2(){
+    	 if($('#file').val() !=''){ //파일첨부 o
+    		
+    		 var formData = new FormData();
+    	 		formData.append("file",$("input[name=file]")[0].files[0]);
+    	 		
+    	 		$.ajax({
+    	 			
+    	 			url : "<c:url value='/fileAdd.do'/>",
+    	 			type : "post",
+    	 			data : formData,
+    	 			processData : false, //form데이터 넘길때는 (text같은거말고) 여기에 false해야한대
+    	 			contentType : false, //return 값? 파일 업로드 후 return 받을 값이래 
+    	 			success : function(data){ //업로드된 실제파일 이름 전달받기 db에 파일이름 저장할 것
+    	 				
+    	 				//alert(data);
+    	 				
+    	 				$("#filename").val(data); //id filename 속성 만들고 파일 첨부로 이름 초기화 한 뒤 submit할떄 같이 넘어가게 하기
+    	 				document.form1.action="<c:url value='/memberInsert.do'/>?mode=fadd"; 
+    	 		    	document.form1.submit(); //text데이터 저장 - 서버에 
+    	 				//파일이름 포함 submit
+    	 			},
+    	 			error: function(){alert("error");}
+    	 			
+    	 			
+    	 		});
+    	 		
+    	 		
+    	 }else { //파일첨부 x
+    		    document.form1.action="<c:url value='/memberInsert.do'/>?mode=add"; 
+		    	document.form1.submit(); //파일이름 없이 insert됨! 
+    		 
+    	 }
+    	 
+     }
   </script>
 </head>
 <body>
@@ -110,19 +146,19 @@
 	  </div>	
 	  
 	    <div class="form-group">
-	    <label class="control-label col-sm-2" for="pass">전화번호:</label>
+	    <label class="control-label col-sm-2" for="">첨부파일:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" style="width: 30%">
+	      <input type="file" class="control-label" id="file" name="file">
 	    </div>
 	  </div>	
 	  
-	  
+	  <input type="hidden" name="filename" id="filename" value="">
 	 </form>
     </div>
     <div class="panel-footer" style="text-align: center;">
        
        <c:if test="${sessionScope.userId==null || sessionScope.userId==''}"> 
-         <input type="button" value="등록" class='btn btn-primary' onclick="add()"/>
+         <input type="button" value="등록" class='btn btn-primary' onclick="add2()"/>
        </c:if>
        <c:if test="${sessionScope.userId!=null && sessionScope.userId!=''}"> 
           <input type="button" value="등록" class='btn btn-primary' onclick="add()" disabled="disabled"/>
