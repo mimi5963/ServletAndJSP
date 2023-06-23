@@ -25,6 +25,7 @@ public class FileAddController implements Controller {
 		if(!currentDirPath.exists()) {
 			currentDirPath.mkdir();
 		}
+		 String fileName = null;
 		// 여기까지는 업로드된 파일을 저장할 서버 디렉토리 만든 것 (디렉토리만 만듦)
 		
 		//클라이언트가 파일 업로드시, 파일의 크기가 너무 크면 JVM이 메모리에 모두 저장하기 부담
@@ -40,7 +41,7 @@ public class FileAddController implements Controller {
 		factory.setRepository(currentDirPath);
 		factory.setSizeThreshold(1024*1024);
 		
-	    String fileName = null;
+	   
 	    
 	    //request에 담긴 업로드될 파일 쉽게 factory위치에 저장하기 위한 객체
 		ServletFileUpload upload = new ServletFileUpload(factory); //임시저장공간 지정

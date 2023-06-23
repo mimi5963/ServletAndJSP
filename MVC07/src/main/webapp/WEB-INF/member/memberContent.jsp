@@ -17,12 +17,66 @@
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>
 <script type="text/javascript">
    function update(){
-	  document.form1.action="<c:url value='/memberUpdate.do'/>"; 
-	  document.form1.submit();
+	  //document.form1.action="<c:url value='/memberUpdate.do'/>"; 
+	  //document.form1.submit();
+	  
+	   if($('#file').val() !=''){ //파일첨부 o
+   			
+  		 var formData = new FormData();
+  	 		formData.append("file",$("input[name=file]")[0].files[0]);
+  	 		
+  	 		$.ajax({
+  	 			
+  	 			url : "<c:url value='/fileAdd.do'/>",
+  	 			type : "post",
+  	 			data : formData,
+  	 			processData : false, //form데이터 넘길때는 (text같은거말고) 여기에 false해야한대
+  	 			contentType : false, //return 값? 파일 업로드 후 return 받을 값이래 
+  	 			success : function(data){ //업로드된 실제파일 이름 전달받기 db에 파일이름 저장할 것
+  	 				
+  	 				//alert(data);
+  	 				
+  	 				$("#filename").val(data); //id filename 속성 만들고 파일 첨부로 이름 초기화 한 뒤 submit할떄 같이 넘어가게 하기
+  	 				document.form1.action="<c:url value='/memberUpdate.do'/>?mode=fupdate"; 
+  	 		    	document.form1.submit(); //text데이터 저장 - 서버에 
+  	 				//파일이름 포함 submit
+  	 			},
+  	 			error: function(){alert("error");}
+  	 			
+  	 			
+  	 		});
+  	 		
+  	 		
+  	 }else { //파일첨부 x
+  		        document.form1.action="<c:url value='/memberUpdate.do'/>?mode=update"; 
+		    	document.form1.submit(); //파일이름 없이 insert됨! 
+  		 
+  	 }
+	    
    }
+   
    function frmreset(){
 	  document.form1.reset();
    }
+   
+   
+   
+   
+   function getFile(filename){
+		
+	   location.href="<c:url value='/fileGet.do'/>?filename="+filename;
+   }
+
+   
+   function delFile(num,filename){
+	   alert("hi");
+	   location.href="<c:url value='/fileDel.do'/>?num="+num+"&filename="+filename;
+   }
+   
+
+  
+   
+   
 </script>
 </head>
 <body>
@@ -30,8 +84,11 @@
   <h2>상세화면</h2>
   <div class="panel panel-default">
     <div class="panel-heading">
-     <c:if test="${sessionScope.userId!=null && sessionScope.userId!=''}">
-       <label>${sessionScope.userName}님이 로그인 하셨습니다.</label>
+     <c:if test="${sessionScope.userId!=null && sessionScope.userId!='' && sessionScope.userId==vo.id}">
+       <label>
+       <img src="<c:out value='file_repo/${vo.filename}'/> " width="60px" height="60px" />
+       ${sessionScope.userName}님이 로그인 하셨습니다.
+       </label>
      </c:if>
      <c:if test="${sessionScope.userId==null || sessionScope.userId==''}">
       <label>안녕하세요</label>
@@ -40,6 +97,7 @@
     <div class="panel-body">
     <form id="form1" name="form1" class="form-horizontal" method="post">
       <input type="hidden" name="num" value="${vo.num}"/>
+      <input type="hidden" name="filename" value="" id="filename"/>
       <div class="form-group">
          <label class="control-label col-sm-2">번호:</label>
          <div class="col-sm-10">
@@ -88,19 +146,14 @@
          <div class="col-sm-10">
            <input type="file" id="file" name="file">
            <c:if test="${vo.filename !=null && vo.filename !='' }">
-           <c:out value="${vo.filename}"/>
+           <a href="javascript:getFile('${vo.filename}')"><c:out value="${vo.filename}"/></a>
            </c:if>
          	
          	<c:if test="${sessionScope.userId != null && sessionScope.userId == vo.id && vo.filename != null && vo.filename != ''}">
-         		<span class="glyphicon glyphicon-remove"></span>
+         		<a href="javascript:delFile('${vo.num}','${vo.filename}')"><span class="glyphicon glyphicon-remove">x</span></a>
          	</c:if>
-         
          </div>
       </div> 
-     
-     
-     
-     
      </form>
     </div>
     <div class="panel-footer" style="text-align: center;"> 

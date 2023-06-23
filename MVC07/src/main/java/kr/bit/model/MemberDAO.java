@@ -87,6 +87,23 @@ public class MemberDAO {
 	   session.close();
 	   return cnt;
    }
+   public int memberDeleteFile(int number) {
+	 int cnt =-1;
+	 SqlSession session = sqlSessionFactory.openSession();
+	 cnt = session.update("memberdelFile", number);
+	 session.commit();
+	 session.close();
+	 
+	 return cnt;
+  }
+public int memberUpdateFile(MemberVO vo) {
+	int cnt =-1;
+	SqlSession session = sqlSessionFactory.openSession();
+	cnt=session.update("memberUpdateFile", vo);
+	session.commit();
+	session.close();
+	return cnt;
+}
 }
 
 
