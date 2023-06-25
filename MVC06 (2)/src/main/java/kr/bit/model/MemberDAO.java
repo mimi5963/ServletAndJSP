@@ -68,6 +68,16 @@ public class MemberDAO {
 	   session.close();
 	   return user_name;
    }
+public String memberCheck(String id) {
+	 SqlSession session = sqlSessionFactory.openSession();
+     String dbid = session.selectOne("membercheck", id);
+     session.close();
+     String isDouble="NO";
+	  if(dbid != null) {
+		  isDouble="YES";
+	  }
+	return isDouble;
+}
    
 }
 
