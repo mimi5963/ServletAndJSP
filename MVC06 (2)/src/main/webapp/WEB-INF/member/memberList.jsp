@@ -40,6 +40,73 @@
   function logout(){
 	  location.href="<c:url value='/memberLogout.do'/>";  // /MVC06/memberList.do
   }
+  function memberList(){
+	  //.html(값)가능 
+	  //var html = $("#collapse1 .panel-body").html();
+	  //alert(html);
+	  //ajax로 html 받아온다음에 띄우면됨 그러면 ..
+	  $.ajax({
+		  
+		  url : "<c:url value='/memberAList.do'/>",
+		  type : "GET",
+		  dataType: "json",
+		  success:resultList,
+		  error: function(){alert("error");} 
+	  });
+	  
+  }
+  
+  function resultList(data){
+	 
+	  var html = "<table>";
+	  html += "<tr>";
+	  html += "<th>번호</th>";
+	  html += "<th>아이디</th>";
+	  html += "<th>비밀번호</th>";
+	  html += "<th>이름</th>";
+	  html += "<th>나이</th>";
+	  html += "<th>이메일</th>";
+	  html += "<th>전화번호</th>";
+	  html += "<th>삭제</th>";
+	  html += "</tr>";
+	 
+	  
+	  $.each(data,function(index,obj){
+		  
+			 html += "<tr>";
+		     html +="<td>"+obj.num+"</td>";
+			 html+= "<td>"+obj.id+"</td>";
+			 html+= "<td>"+obj.pass+"</td>";
+			 html+= "<td>"+obj.name+"</td>";
+			 html+= "<td>"+obj.age+"</td>";
+			 html+= "<td>"+obj.email+"</td>";
+			 html+= "<td>"+obj.phone+"</td>";
+			 
+			 html+= "<td><input type='button' value='삭제' class ='btn btn-warning' onclick='delFn("+obj.num+")'></td>";
+		    
+			 html+= "</tr>";
+	    	 
+	  });
+	
+	  html += "</table>";  
+	  $("#collapse1 .panel-body").html(html);
+	  
+  }
+  
+  function delFn(num){
+	  
+	  $.ajax({
+		  
+		  url: "<c:url value='/memberAdel.do'/>",
+		  type : "get",
+		  data : {"num":num},
+		  success : memberList,
+		  error : function(){alert("error");}
+		  
+	  });
+	  
+  }
+
 </script>
 </head>
 <body>
@@ -105,10 +172,25 @@
 	    </table>
 	   </div>
     </div>
+    <div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1" onclick="memberList()">회원리스트보기</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">Panel Body</div>
+      <div class="panel-footer">Panel Footer</div>
+    </div>
+  </div>
+</div>
+    
     <div class="panel-footer">
       회원관리 ERP System(admin@bit.com)
     </div>
   </div>
 </div>
+
 </body>
 </html>
