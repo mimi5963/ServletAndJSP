@@ -78,6 +78,13 @@ public String memberCheck(String id) {
 	  }
 	return isDouble;
 }
+public int memberInsertFile(MemberVO vo) {
+	 SqlSession session=sqlSessionFactory.openSession();
+	   int cnt=session.insert("memberInsertfile", vo);
+	   session.commit();
+	   session.close();//반납
+	   return cnt;
+}
    
 }
 

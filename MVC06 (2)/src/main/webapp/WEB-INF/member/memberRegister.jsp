@@ -50,6 +50,38 @@
     		 $("#id").focus();
     	 }
      }
+     
+     function add2(){
+    	 if($("#file").val() != ''){
+    		 var formData = new FormData();
+    		 formData.append("file",$("input[name=file]")[0].files[0]);
+    		 
+    		 $.ajax({
+    			 
+    			 url : "<c:url value='/fileAdd.do'/>",
+    			 type : "post",
+    			 data : formData,
+    			 processData : false,
+    			 contentType : false,
+    			 success : function(data){
+    				 $("#filename").val(data);
+    				 
+    				 document.form1.action="<c:url value='/memberInsert.do'/>?mode=fadd"; 
+    			     document.form1.submit();
+    				 
+    			 }
+    		 	error: function(){alert("error");}
+    			  
+    		 })
+    		 
+    		
+    	 }else{
+    		 
+    		 document.form1.action="<c:url value='/memberInsert.do'/>?mode=add"; 
+		     document.form1.submit(); 
+    		 
+    	 }
+     }
   </script>
 </head>
 <body>
@@ -66,6 +98,7 @@
     </div>
     <div class="panel-body">
      <form id="form1" name="form1" class="form-horizontal" method="post">
+	  <input type="hidden" name="filename" id="filename" value="">
 	  <div class="form-group">
 	    <label class="control-label col-sm-2" for="id">아이디:</label>
 	    <div class="col-sm-10">
@@ -113,6 +146,16 @@
 	      <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" style="width: 30%">
 	    </div>
 	  </div>	
+	 
+	 <div class="form-group">
+	    <label class="control-label col-sm-2" for="">첨부파일:</label>
+	    <div class="col-sm-10">
+	      <input type="file" class="control-label" id="file" name="file">
+	    </div>
+	  </div>	
+	 
+	 
+	 
 	 </form>
     </div>
     <div class="panel-footer" style="text-align: center;">

@@ -5,11 +5,11 @@
 <mapper namespace="kr.bit.mybatis.MemberMapper">
   
     <select id="memberList" resultType="memberVO">
-       select * from member
+       select * from member2
     </select>
     
     <insert id="memberInsert" parameterType="memberVO">
-        insert into member(id, pass, name, age, email, phone)
+        insert into member2(id, pass, name, age, email, phone)
         values(
         #{id},
         #{pass},
@@ -21,23 +21,36 @@
     </insert>
     
     <delete id="memberDelete" parameterType="Integer">  
-        delete from member where num=#{num}
+        delete from member2 where num=#{num}
     </delete>
     
     <select id="memberContent" parameterType="Integer" resultType="memberVO">        
-        select * from member where num=#{num}
+        select * from member2 where num=#{num}
     </select>
     
     <update id="memberUpdate" parameterType="memberVO">
-         update member 
+         update member2 
          set age=#{age}, email=#{email}, phone=#{phone} 
          where num=#{num}	 
     </update>
     
     <select id="memberLogin" parameterType="memberVO" resultType="String">
-        select name from member where id=#{id} and pass=#{pass}       
+        select name from member2 where id=#{id} and pass=#{pass}       
     </select>
     <select id="membercheck" parameterType="String" resultType="String">
-        select id from member where id=#{id}      
+        select id from member2 where id=#{id}      
     </select>
+    
+    <insert id="memberInsertfile" parameterType="memberVO">
+      insert into member2(id, pass, name, age, email, phone,filename)
+        values(
+        #{id},
+        #{pass},
+        #{name},
+        #{age},
+        #{email},
+        #{phone},
+        #{filename}
+        )       
+    </insert>
 </mapper>

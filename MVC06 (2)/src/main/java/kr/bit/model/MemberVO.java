@@ -8,18 +8,21 @@ public class MemberVO {
 	 private int age;
 	 private String email;
 	 private String phone;
-	 public MemberVO() {   }
+	 private String filename;
 	 
-	public MemberVO(String id, String pass, String name, int age, String email, String phone) {
-		super();
-		this.id = id;
-		this.pass = pass;
-		this.name = name;
-		this.age = age;
-		this.email = email;
-		this.phone = phone;
+	 
+	 public String getFilename() {
+		return filename;
 	}
-	public MemberVO(int num, String id, String pass, String name, int age, String email, String phone) {
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public MemberVO() {   }
+	 
+	public MemberVO(int num, String id, String pass, String name, int age, String email, String phone,
+			String filename) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -28,7 +31,20 @@ public class MemberVO {
 		this.age = age;
 		this.email = email;
 		this.phone = phone;
+		this.filename = filename;
 	}
+
+	public MemberVO(String id, String pass, String name, int age, String email, String phone, String filename) {
+		super();
+		this.id = id;
+		this.pass = pass;
+		this.name = name;
+		this.age = age;
+		this.email = email;
+		this.phone = phone;
+		this.filename = filename;
+	}
+
 	public int getNum() {
 		return num;
 	}
