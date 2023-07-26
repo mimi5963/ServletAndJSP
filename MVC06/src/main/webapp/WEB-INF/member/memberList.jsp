@@ -36,6 +36,10 @@
 	 }
 	return true;
   }
+  function logout(){
+	  location.href="<c:url value='/memberLogout.do'/>";
+	  
+  }
 </script>
 </head>
 <body>
@@ -60,7 +64,7 @@
 </c:if>
 	<c:if test="${sessionScope.userId!=null && sessionScope.userId!=''}">
     	${sessionScope.userName}님 환영합니다.
-     <button type="button" class="btn btn-warning">로그아웃</button>
+     <button type="button" class="btn btn-warning" onclick="logout()">로그아웃</button>
     </c:if>
     </div>
     <div class="panel-body"></div>
@@ -98,7 +102,9 @@
     	  </tr>    	 
   		</c:forEach>
   			<tr>
+  			<c:if test="${sessionScope.userId ==null || sessionScope.userId =='' }">
   			<td colspan="8" align="right"><input type="button" value="회원가입" class="btn btn-primary" onclick="location.href='${ctx}/memberRegister.do'"/></td>
+  			</c:if>
   			</tr>
     </tbody>
     </table>
