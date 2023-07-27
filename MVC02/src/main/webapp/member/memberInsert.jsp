@@ -22,6 +22,7 @@
 		throw new ServletException("not insert");
 	}
 
+		
 
 %>    
     

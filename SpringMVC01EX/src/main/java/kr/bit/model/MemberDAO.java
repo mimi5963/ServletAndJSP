@@ -1,5 +1,6 @@
 package kr.bit.model;
 import java.io.InputStream;
+
 // JDBC->MyBatis
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,19 +10,15 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+@Repository
 public class MemberDAO {
+	
+   @Autowired
    private static SqlSessionFactory sqlSessionFactory; //[O O O O O ]
  
-   // 초기화 블럭-프로그램실행시 딱 한번만 실되는 코드영역
-   static {
-	   try {
-		   String resource = "kr/bit/mybatis/config.xml";
-		   InputStream inputStream = Resources.getResourceAsStream(resource);//읽기
-		   sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream); 
-	   }catch(Exception e) {
-		   e.printStackTrace();
-	   }
-   }
+  
    // 회원전체 리스트보기
    public List<MemberVO> memberList() {
 	   // [Connection+Statement]=>SqlSession
