@@ -1,5 +1,5 @@
 package kr.bit.model;
-//회원(Object) ->
+
 public class MemberVO {
 	private int num; 
 	private String id;
@@ -8,7 +8,7 @@ public class MemberVO {
 	private int age;
 	private String email;
 	private String phone;
-	//int num포함된건 db용 
+	
 	public MemberVO(int num, String id, String pass, String name, int age, String email, String phone) {
 		super();
 		this.num = num;
@@ -20,7 +20,7 @@ public class MemberVO {
 		this.phone = phone;
 	}
 	public MemberVO(){}
-	//ㅇ거 ㅈ동생성이라 super있고, num은 우리가 입력하는거아닌데 입력할 수 있게 만들어둔거 추후를 위해 0524
+
 	public MemberVO(String id, String pass, String name, int age, String email, String phone) {
 		super();
 		this.id = id;
